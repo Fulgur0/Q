@@ -1,0 +1,52 @@
+<?php
+
+if ($argc < 2) {
+    echo "Usage: php qConvert <file>\n";
+    exit(1);
+}
+
+$file = $argv[1];
+$content = explode(" ", file_get_contents($file));
+$stack = "";
+foreach ($content as $c) {
+    $charStack = "q;";
+    $bits = str_split($c, 1);
+    foreach ($bits as $bit) {
+        switch ($bit) {
+            case "1":
+                $charStack .= "qQQQQ";
+                break;
+            case "2":
+                $charStack .= "qqQQQ";
+                break;
+            case "3":
+                $charStack .= "qqqQQ";
+                break;
+            case "4":
+                $charStack .= "qqqqQ";
+                break;
+            case "5":
+                $charStack .= "qqqqq";
+                break;
+            case "6":
+                $charStack .= "Qqqqq";
+                break;
+            case "7":
+                $charStack .= "QQqqq";
+                break;
+            case "8":
+                $charStack .= "QQQqq";
+                break;
+            case "9":
+                $charStack .= "QQQQq";
+                break;
+            case "0":
+                $charStack .= "QQQQQ";
+                break;
+        }
+    }
+    $stack .= $charStack . "q;\n";
+    $charStack = "";
+}
+
+file_put_contents($file, $stack);
