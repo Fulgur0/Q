@@ -1,3 +1,5 @@
+# Q is a programming language consisting of Q and q.
+
 `[]` - Everything between these brackets is considered a comment and will be ignored by the interperter
 
 `q` - Push character to stack
